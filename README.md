@@ -1,38 +1,53 @@
 Zolotariov Anastasia
 
-# Самостоятельная: click + sqlite, вариант 6 — diary
+# diary — CLI-дневник (вариант 6)
 
-Утилита-дневник: группа команд на click, заметки хранятся в sqlite через SQLAlchemy (файл `diary.db` создаётся при первом запуске).
+Утилита командной строки для ведения дневника: добавление, просмотр и удаление заметок. Написана на Click, заметки хранятся в SQLite через SQLAlchemy ORM. Файл базы `diary.db` и лог `app.log` создаются в папке, из которой запускается утилита.
 
 ## Установка
 
 ```
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
 pip install -r requirements.txt
+pip install -e .
 ```
 
-## Запуск
+На Windows окружение активируется командой `.venv\Scripts\activate`.
+
+## Использование
+
+После `pip install -e .` доступна команда `diary`. Без установки можно запускать через `python diary.py`.
 
 ```
-python diary.py add "Купить молоко"
-python diary.py list
-python diary.py delete 1
+diary add "Купить молоко"
+diary list
+diary delete 1
+diary --help
 ```
 
-Пример:
+Пример работы:
 
 ```
-$ python diary.py add "Купить молоко"
+$ diary add "Купить молоко"
 Заметка добавлена, id: 1
-$ python diary.py list
-1 | 17.10.2026 14:05 | Купить молоко
-$ python diary.py delete 5
+$ diary list
+1 | 22.10.2026 10:16 | Купить молоко
+$ diary delete 5
 Error: заметки с id 5 нет
+$ echo $?
+1
 ```
 
-## Тесты
+## Логи
 
-Тесты используют sqlite в памяти, файл на диске не создаётся.
+Добавление, удаление и просмотр заметок, а также ошибки записываются в `app.log`.
+
+## Тесты и проверка кода
 
 ```
 pytest
+ruff format --check .
+ruff check .
 ```

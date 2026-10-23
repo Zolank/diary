@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "diary"
+version = "0.1.0"
+description = "CLI-дневник на Click и SQLite"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "Zolotariov Anastasia" }]
+dependencies = [
+    "click>=8.1",
+    "SQLAlchemy>=2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+[project.scripts]
+diary = "diary:cli"
+
+[tool.setuptools]
+py-modules = ["diary"]
